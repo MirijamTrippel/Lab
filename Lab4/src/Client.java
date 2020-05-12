@@ -9,7 +9,7 @@ public class Client {
     //creates client with a Port // default port 123
     public Client(int port) throws IOException {
         this.portNumber = port;
-        Socket connection = new Socket("localhost",portNumber);
+        Socket connection = new Socket("localHost",portNumber);
 
         //
         // TODO -Miri: Ich weiß nicht wieso immer connection refused kommt.
