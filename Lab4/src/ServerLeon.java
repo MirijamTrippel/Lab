@@ -9,10 +9,23 @@ public class ServerLeon {
 
         System.out.println("Client has connected");
 
+        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
+
         InputStreamReader input  = new InputStreamReader(client.getInputStream());
         BufferedReader reader = new BufferedReader(input);
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
 
-        String message = reader.readLine();
-        System.out.println("Client: " + message);
+        try {
+            while (true) {
+                String serverMessage = keyboard.readLine();
+                writer.println(serverMessage);
+                String clientResponse = reader.readLine();
+                System.out.println("Client: " + clientResponse);
+                }
+        }
+        finally {
+            writer.close();
+            reader.close();
+        }
     }
 }
