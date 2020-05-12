@@ -1,29 +1,62 @@
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
+    public static void main(String[] args) throws IOException {
+        //Step1
+        Socket server = new Socket("localHost", 3000);
 
-    private static int portNumber = 123 ;
+        System.out.println("Connected to Server!");
+        System.out.println("You can now start to chat!");
+        
+        PrintWriter writer = new PrintWriter(server.getOutputStream(), true);
 
-    //creates client with a Port // default port 123
-    public Client(int port) throws IOException {
-        this.portNumber = port;
-        Socket connection = new Socket("localhost",portNumber);
+        InputStreamReader input = new InputStreamReader(server.getInputStream());
+        BufferedReader chatReader = new BufferedReader(input);
+        BufferedReader chatInput = new BufferedReader(new InputStreamReader(System.in));
+        //Step 2
+        /*
+        while(true) {
+            String message = chatInput.readLine();
+            if (message.equals("quit")) {
+                server.close();
+                break;
+            }
+            writer.println("Client: " + message);
+            String serverResponse = reader.readLine();
+            System.out.println("Server: " + serverResponse);
+        }
+        */
 
-        //
-        // TODO -Miri: Ich weiß nicht wieso immer connection refused kommt.
-        //
+        //Step 3
+        Thread send = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        String clientMessage = chatInput.readLine();
+                        writer.println("Client: " + clientMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
-        // output in the socket to the       server via stream
-        PrintWriter output = new PrintWriter(connection.getOutputStream());
-
-        //message for the server
-        output.println("Hello Server, I am a Client.");
-        output.flush();
-
+        Thread read = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        String serverResponse = chatReader.readLine();
+                        System.out.println(serverResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        send.start();
+        read.start();
     }
-
-
-
 }
