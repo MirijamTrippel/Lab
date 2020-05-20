@@ -1,33 +1,69 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    public static void main(String[] args) throws IOException {
+        //Step 1
+        System.out.println("Waiting for Client...");
 
-    private static int portNumber = 123 ;
+        ServerSocket server = new ServerSocket(3000);
+        Socket client = server.accept();
 
-    //creates server with a Port // default port 123
-    public Server(int port) throws IOException {
-        this.portNumber = port;
-        ServerSocket server = new ServerSocket(portNumber);
-        Socket connection = server.accept();
+        System.out.println("Client connected!");
+        System.out.println("You can now start to chat!");
 
-        //                         Reading data from     client     stream
-        InputStreamReader reader = new InputStreamReader(connection.getInputStream());
-        //                         Buffering the Data from the reader
-        BufferedReader input = new BufferedReader(reader);
+        PrintWriter writer = new PrintWriter(client.getOutputStream(), true);
 
+        InputStreamReader input = new InputStreamReader(client.getInputStream());
+        BufferedReader chatReader = new BufferedReader(input);
+        BufferedReader chatInput = new BufferedReader(new InputStreamReader(System.in));
 
-        //Makes msg      takes Buffered data
-        String message = input.readLine();
-        //                 Echoes the data as a String
-        System.out.println("Echo: " + message);
+        //Step 2
+        /*try {
+            while (true) {
+                String serverMessage = chatInput.readLine();
+                writer.println("Server: " + serverMessage);
+                String clientResponse = chatReader.readLine();
+                System.out.println("Client: " + clientResponse);
+            }
+        } finally {
+            writer.close();
+            reader.close();
+        }
+        */
 
+        //Step 3
 
+        Thread send = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        String serverMessage = chatInput.readLine();
+                        writer.println("Server: " + serverMessage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        Thread read = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        String clientResponse = chatReader.readLine();
+                        System.out.println(clientResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        send.start();
+        read.start();
     }
-
-
-
 }
