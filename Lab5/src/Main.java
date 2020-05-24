@@ -13,7 +13,6 @@ public class Main {
         int n = 50;
         System.out.println(fragment1(n));
         System.out.println(timerResult);
-
     }
 
     // https://www.baeldung.com/java-algorithm-complexity
@@ -24,10 +23,10 @@ public class Main {
     static double timerResult;
 
     // Linear Time Algorithms – O(n) = 50 // T = ungefähr 2900.0
-    public static int fragment1(int n){
+    public static int fragment1(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
+        for (int i = 0; i < n; i++)
             sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
@@ -36,13 +35,12 @@ public class Main {
     }
 
 
-
     // O(n^2) = 2500
-    public static int fragment2(int n){
+    public static int fragment2(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
-            for ( int j = 0; j < n; j ++)
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
                 sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
@@ -50,11 +48,11 @@ public class Main {
     }
 
     // ??? = 1275 wie kann das sein denn wir haben doch die selbe größe als i
-    public static int fragment3(int n){
+    public static int fragment3(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
-            for ( int j = i; j < n; j ++)
+        for (int i = 0; i < n; i++)
+            for (int j = i; j < n; j++)
                 sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
@@ -62,24 +60,24 @@ public class Main {
     }
 
     // Linear Time Algorithms – O(n) = 100
-    public static int fragment4(int n){
+    public static int fragment4(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
-            sum ++;
-        for ( int j = 0; j < n; j ++)
-            sum ++;
+        for (int i = 0; i < n; i++)
+            sum++;
+        for (int j = 0; j < n; j++)
+            sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
         return sum;
     }
 
     // O(n^3) = 125000
-    public static int fragment5(int n){
+    public static int fragment5(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
-            for ( int j = 0; j < n*n; j ++)
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n * n; j++)
                 sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
@@ -87,11 +85,11 @@ public class Main {
     }
 
     // ??? = 1225
-    public static int fragment6(int n){
+    public static int fragment6(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 0; i < n; i ++)
-            for ( int j = 0; j < i; j ++)
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < i; j++)
                 sum++;
         timerEnd = System.nanoTime();
         timerResult = timerEnd - timerStart;
@@ -99,11 +97,11 @@ public class Main {
     }
 
     // ??? = 13996133
-    public static int fragment7(int n){
+    public static int fragment7(int n) {
         int sum = 0;
         timerStart = System.nanoTime();
-        for ( int i = 1; i < n; i ++)
-            for ( int j = 0; j < n*n; j ++)
+        for (int i = 1; i < n; i++)
+            for (int j = 0; j < n * n; j++)
                 if (j % i == 0)
                     for (int k = 0; k < j; k++)
                         sum++;
@@ -112,6 +110,17 @@ public class Main {
         return sum;
     }
 
-
-
+    // Part 2
+    public static boolean isPrime(int n) {
+        if (n < 2) {
+            return false;
+        } else {
+            for (int i = 2; i <= n / 2; i++) {
+                if (n % i == 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 }
