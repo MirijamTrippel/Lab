@@ -10,116 +10,132 @@
 public class Main {
 
     public static void main(String[] args) {
-        int n = 50;
-        System.out.println(fragment1(n));
-        System.out.println(timerResult);
+        // O(n)
+        System.out.println("////////////Fragment 1: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment1(n));
+        }
+        // O(n^2)
+        System.out.println("////////////Fragment 2: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment2(n));
+        }
+        // O(n^2)
+        System.out.println("////////////Fragment 3: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment3(n));
+        }
+        // O(n^2)
+        System.out.println("////////////Fragment 4: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment4(n));
+        }
+        // O(n^3)
+        System.out.println("////////////Fragment 5: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment5(n));
+        }
+        // O(n^2)
+        System.out.println("////////////Fragment 6: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment6(n));
+        }
+        // O(n^5)
+        System.out.println("////////////Fragment 7: ///////////");
+        for (int n = 0; n <= 50; n++) {
+            System.out.println(n + " steps: " + fragment7(n));
+        }
+
+        for (long n = (long) Math.pow(2, 20); n <= Math.pow(2, 20) + 100; n++) {
+            System.out.print(n + ": " + isPrime(n) + " | time: ");
+            System.out.println(timerResult);
+        }
+        for (long n = (long) Math.pow(2, 40); n <= Math.pow(2, 40) + 100; n++) {
+            System.out.print(n + ": " + isPrime(n) + " | time: ");
+            System.out.println(timerResult);
+        }
     }
-
-    // https://www.baeldung.com/java-algorithm-complexity
-
 
     static double timerStart;
     static double timerEnd;
     static double timerResult;
 
-    // Linear Time Algorithms – O(n) = 50 // T = ungefähr 2900.0
     public static int fragment1(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
 
     }
 
-
-    // O(n^2) = 2500
     public static int fragment2(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n; j++)
                 sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
-    // ??? = 1275 wie kann das sein denn wir haben doch die selbe größe als i
     public static int fragment3(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             for (int j = i; j < n; j++)
                 sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
-    // Linear Time Algorithms – O(n) = 100
     public static int fragment4(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             sum++;
         for (int j = 0; j < n; j++)
             sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
-    // O(n^3) = 125000
     public static int fragment5(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             for (int j = 0; j < n * n; j++)
                 sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
-    // ??? = 1225
     public static int fragment6(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 0; i < n; i++)
             for (int j = 0; j < i; j++)
                 sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
-    // ??? = 13996133
     public static int fragment7(int n) {
         int sum = 0;
-        timerStart = System.nanoTime();
         for (int i = 1; i < n; i++)
             for (int j = 0; j < n * n; j++)
                 if (j % i == 0)
                     for (int k = 0; k < j; k++)
                         sum++;
-        timerEnd = System.nanoTime();
-        timerResult = timerEnd - timerStart;
         return sum;
     }
 
     // Part 2
-    public static boolean isPrime(int n) {
+    public static boolean isPrime(long n) {
+        timerStart = System.nanoTime();
         if (n < 2) {
+            timerEnd = System.nanoTime();
+            timerResult = timerEnd - timerStart;
             return false;
         } else {
-            for (int i = 2; i <= n / 2; i++) {
+            for (long i = 2; i <= n / 2; i++) {
                 if (n % i == 0) {
+                    timerEnd = System.nanoTime();
+                    timerResult = timerEnd - timerStart;
                     return false;
                 }
             }
+            timerEnd = System.nanoTime();
+            timerResult = timerEnd - timerStart;
             return true;
         }
     }
