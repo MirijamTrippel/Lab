@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import stack.Overflow;
 import stack.Underflow;
 
 @RunWith(Parameterized.class)
@@ -40,7 +41,7 @@ public class Infix2PostfixTest {
 	}
 
 	@Test
-	public void testInfixToPostfix() throws Underflow {
+	public void testInfixToPostfix() throws Underflow, Overflow {
 		assertEquals(comment + " (infix was: " + infix + ")", postfix,
 				converter.infixToPostfix(infix));
 	}

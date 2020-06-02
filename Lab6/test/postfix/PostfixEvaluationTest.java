@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import stack.Overflow;
+import stack.Underflow;
 
 @RunWith(Parameterized.class)
 public class PostfixEvaluationTest {
@@ -38,10 +40,9 @@ public class PostfixEvaluationTest {
 	}
 
 	@Test
-	public void testEvaluatePostfix() {
+	public void testEvaluatePostfix() throws Underflow, Overflow {
 		assertEquals(comment + " (postfix was: " + postfix+")", result,
 				postfixEvaluator.evaluate(postfix), 0.0);
 
 	}
-
 }
