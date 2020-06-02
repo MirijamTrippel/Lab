@@ -18,27 +18,27 @@ public class StackTest {
 	 * simple tests
 	 */
 	@Test
-	public void testPush1() {
+	public void testPush1() throws Overflow {
 		stack.push("a");
 		assertEquals("a", stack.toString());
 	}
 
 	@Test
-	public void testPush2() {
+	public void testPush2() throws Overflow {
 		stack.push("a");
 		stack.push("b");
 		assertEquals("b, a", stack.toString());
 	}
 
 	@Test
-	public void testPop() throws Underflow {
+	public void testPop() throws Underflow, Overflow {
 		stack.push("a");
 		stack.push("b");
 		stack.pop();
 		assertEquals("a", stack.toString());
 	}
 	@Test
-	public void testPop2() throws Underflow {
+	public void testPop2() throws Underflow, Overflow {
 		stack.push("a");
 		stack.push("b");
 		stack.push("c");
@@ -57,7 +57,7 @@ public class StackTest {
 	 * Axiom 2: isEmpty(push(q,x)) = false
 	 */
 	@Test
-	public void axiom2() {
+	public void axiom2() throws Overflow {
 		stack.push("A");
 		assertEquals(false, stack.isEmpty());
 	}
@@ -68,7 +68,7 @@ public class StackTest {
 	 * @throws Underflow
 	 */
 	@Test(expected = Underflow.class)
-	public void axiom3() throws Underflow {
+	public void axiom3() throws Underflow, Overflow {
 		stack.pop();
 	}
 
@@ -86,15 +86,16 @@ public class StackTest {
 	 * @throws Underflow
 	 */
 	@Test
-	public void axiom5OnEmptyStack() throws Underflow {
+	public void axiom5OnEmptyStack() throws Underflow, Overflow {
 		String before = stack.toString();
 		stack.push("huhu");
-		stack.pop();
+		String pop = stack.pop();
 		assertEquals(before, stack.toString());
 	}
 
+
 	@Test
-	public void axiom5OnEmptyNonEmpty() throws Underflow {
+	public void axiom5OnEmptyNonEmpty() throws Underflow, Overflow {
 		stack.push("a");
 		stack.push("b");
 		String before = stack.toString();
@@ -109,14 +110,14 @@ public class StackTest {
 	 * @throws Underflow
 	 */
 	@Test
-	public void axiom6OnEmptyStack() throws Underflow {
+	public void axiom6OnEmptyStack() throws Underflow, Overflow {
 		String x = "huhu";
 		stack.push(x);
 		assertEquals(x, stack.top());
 	}
 
 	@Test
-	public void axiom6() throws Underflow {
+	public void axiom6() throws Underflow, Overflow {
 		stack.push("a");
 		stack.push("b");
 

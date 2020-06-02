@@ -1,5 +1,7 @@
 package stack;
+
 import java.lang.Object;
+
 public class LinkedListStack<Object> implements Stack<Object> {
 
     public Node first;
@@ -21,10 +23,6 @@ public class LinkedListStack<Object> implements Stack<Object> {
 
         public Object getData() {
             return data;
-        }
-
-        public Node getNode() {
-            return this;
         }
 
         public void setData(Object data) {
@@ -50,7 +48,7 @@ public class LinkedListStack<Object> implements Stack<Object> {
 
     @Override
     public Object top() throws Underflow {
-        if (currentHeight == 0){
+        if (currentHeight == 0) {
             throw new Underflow();
         }
         return (Object) first.getData();
@@ -76,8 +74,12 @@ public class LinkedListStack<Object> implements Stack<Object> {
 
     @Override
     public String toString() {
-        String result;
-        for (Object d : )
-            return null;
+        String result = "";
+        for (Node<Object> current = first; current != null; current = current.next) {
+            result += current.getData();
+            if (current.getNext() != null)
+                result += ", ";
+        }
+        return result;
     }
 }
