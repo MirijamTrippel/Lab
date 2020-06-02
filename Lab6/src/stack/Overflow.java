@@ -1,9 +1,9 @@
 package stack;
 
-public class Underflow extends Exception {
+public class Overflow extends Exception {
 
 	private static final long serialVersionUID = 6551591962766598233L;
-	public Underflow(){
+	public Overflow(){
 		System.out.println("Stack is full");
 	}
 }
